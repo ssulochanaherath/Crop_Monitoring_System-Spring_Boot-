@@ -31,4 +31,10 @@ public class StaffEntity implements SuperEntity {
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @ManyToMany
+    @JoinTable(name = "Field_Staff_assignment",joinColumns = @JoinColumn(name = "staff_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_code"))
+    private List<FieldEntity> fields;
+    @OneToMany(mappedBy = "assigned_staff",cascade = CascadeType.ALL)
+    private List<VehicleEntity> vehicles;
 }
