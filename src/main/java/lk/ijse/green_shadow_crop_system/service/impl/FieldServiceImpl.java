@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class FieldServiceImpl {
+public class FieldServiceImpl implements FieldService{
     @Autowired
     private FieldDao fieldDao;
     @Autowired
