@@ -1,13 +1,7 @@
 package lk.ijse.green_shadow_crop_system.util;
 
-import lk.ijse.green_shadow_crop_system.dto.impl.CropDTO;
-import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
-import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;
-import lk.ijse.green_shadow_crop_system.dto.impl.UserDTO;
-import lk.ijse.green_shadow_crop_system.entity.impl.CropEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.StaffEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.UserEntity;
+import lk.ijse.green_shadow_crop_system.dto.impl.*;
+import lk.ijse.green_shadow_crop_system.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

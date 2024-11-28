@@ -32,14 +32,14 @@ public class CropServiceImpl implements CropService {
     public void saveCrop(CropDTO cropDTO) {
         cropDTO.setCrop_code(AppUtil.generateCropId());
         CropEntity saveCrop = cropDao.save(mapping.toCropEntity(cropDTO));
-        if (saveCrop == null) {
-            throw new DataPersistException("Failed to save crop");
+        if(saveCrop == null) {
+            throw new DataPersistException("Crop not saved");
         }
     }
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return mapping.toCropDTOList(cropDao.findAll());
+       return mapping.toCropDTOList(cropDao.findAll());
     }
 
     @Override
