@@ -13,6 +13,8 @@ import java.util.List;
 public class Mapping {
     @Autowired
     private ModelMapper modelMapper;
+
+    //for crop mapping
     public CropEntity toCropEntity(CropDTO cropDTO) {
         return modelMapper.map(cropDTO, CropEntity.class);
     }
