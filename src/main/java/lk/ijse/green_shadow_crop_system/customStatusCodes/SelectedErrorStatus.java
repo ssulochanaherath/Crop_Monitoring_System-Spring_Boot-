@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class SelectedErrorStatus implements CropStatus, FieldStatus, EquipmentStatus,
         MonitoringLogStatus, VehicleStatus, StaffStatus {
+    private int statusCode;
+    private String statusMessage;
 }
