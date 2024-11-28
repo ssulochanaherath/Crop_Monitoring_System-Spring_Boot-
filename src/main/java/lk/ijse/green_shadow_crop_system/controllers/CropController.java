@@ -2,6 +2,7 @@ package lk.ijse.green_shadow_crop_system.controllers;
 
 import lk.ijse.green_shadow_crop_system.dto.impl.CropDTO;
 import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
+import lk.ijse.green_shadow_crop_system.exception.DataPersistException;
 import lk.ijse.green_shadow_crop_system.service.CropService;
 import lk.ijse.green_shadow_crop_system.service.FieldService;
 import lk.ijse.green_shadow_crop_system.util.AppUtil;
