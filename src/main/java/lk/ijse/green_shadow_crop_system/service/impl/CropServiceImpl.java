@@ -1,12 +1,17 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
+import jakarta.transaction.Transactional;
+import lk.ijse.green_shadow_crop_system.dao.CropDao;
 import lk.ijse.green_shadow_crop_system.dto.impl.CropDTO;
 import lk.ijse.green_shadow_crop_system.entity.impl.CropEntity;
 import lk.ijse.green_shadow_crop_system.service.CropService;
 import lk.ijse.green_shadow_crop_system.util.AppUtil;
 import lk.ijse.green_shadow_crop_system.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+@Transactional
 public class CropServiceImpl implements CropService {
     @Autowired
     private CropDao cropDao;
