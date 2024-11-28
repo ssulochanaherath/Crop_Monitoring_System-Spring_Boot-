@@ -12,4 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CropController {
     @Autowired
     private CropService cropService;
+    @Autowired
+    private FieldService fieldService;
 }
