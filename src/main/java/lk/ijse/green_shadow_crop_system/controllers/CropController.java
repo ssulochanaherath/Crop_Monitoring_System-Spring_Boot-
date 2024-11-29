@@ -38,7 +38,6 @@ public class CropController {
             base64CropImage = AppUtil.cropImageToBase64(bytesCropImage);
 
             String crop_code = AppUtil.generateCropId();
-
             CropDTO buildCropDTO = new CropDTO();
             buildCropDTO.setCrop_code(crop_code);
             buildCropDTO.setCommon_name(commonName);
