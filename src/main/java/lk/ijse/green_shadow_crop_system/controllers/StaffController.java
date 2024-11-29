@@ -96,4 +96,5 @@ public class StaffController {
         List<String> staffNames = staffService.getAllStaffNames();
         return ResponseEntity.ok(staffNames);
     }
+
 }
