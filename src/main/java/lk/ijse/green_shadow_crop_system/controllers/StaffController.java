@@ -73,15 +73,16 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> updateStaff(@PathVariable ("id") String id,
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping(value = "/{firstName}")
+    public ResponseEntity<Void> updateStaff(@PathVariable ("firstName") String firstName,
                                             @RequestBody StaffDTO staffDTO){
 
         try {
-            if(!Regex.staffIdMatcher(id) || staffDTO == null){
+            if(!Regex.staffIdMatcher(firstName) || staffDTO == null){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            staffService.updateStaff(id, staffDTO);
+            staffService.updateStaff(firstName, staffDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (StaffNotFoundException e){
             e.printStackTrace();

@@ -2,12 +2,13 @@ package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
 import lk.ijse.green_shadow_crop_system.customStatusCodes.SelectedErrorStatus;
+import lk.ijse.green_shadow_crop_system.dao.FieldDao;
 import lk.ijse.green_shadow_crop_system.dao.StaffDao;
 import lk.ijse.green_shadow_crop_system.dto.StaffStatus;
+import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
 import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;
 import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
 import lk.ijse.green_shadow_crop_system.entity.impl.StaffEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.VehicleEntity;
 import lk.ijse.green_shadow_crop_system.exception.StaffNotFoundException;
 import lk.ijse.green_shadow_crop_system.service.StaffService;
 import lk.ijse.green_shadow_crop_system.util.AppUtil;
@@ -15,6 +16,7 @@ import lk.ijse.green_shadow_crop_system.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffDao staffDao;
+    @Autowired
+    private FieldDao fieldDao;
     @Autowired
     private Mapping mapping;
 
@@ -39,7 +43,31 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffDTO> getAllStaff() {
-        return mapping.toStaffDTOList(staffDao.findAll());
+        List<StaffEntity> staffs = staffDao.findAll();
+        return staffs.stream()
+                .map(staff -> {
+                    StaffDTO staffDTO = new StaffDTO();
+                    staffDTO.setFirst_name(staff.getFirst_name());
+                    staffDTO.setLast_name(staff.getLast_name());
+                    staffDTO.setDesignation(staff.getDesignation());
+                    staffDTO.setGender(staff.getGender());
+                    staffDTO.setJoined_date(staff.getJoined_date());
+                    staffDTO.setDob(staff.getDob());
+                    staffDTO.setAddress(staff.getAddress());
+                    staffDTO.setContact_no(staff.getContact_no());
+                    staffDTO.setEmail(staff.getEmail());
+                    staffDTO.setRole(staff.getRole());
+                    List<FieldDTO> assignedFieldDTO = new ArrayList<>();
+                    for (FieldEntity field : staff.getFields()) {
+                        Optional<FieldEntity> fieldOpt = fieldDao.findById(field.getField_name());
+                        if (fieldOpt.isPresent()) {
+                            assignedFieldDTO.add(mapping.toFieldDTO(fieldOpt.get()));
+                        }
+                    }
+                    staffDTO.setFields(assignedFieldDTO);
+                    return staffDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -63,8 +91,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public void updateStaff(String id, StaffDTO staffDTO) {
-        Optional<StaffEntity> tmpStaff = staffDao.findById(id);
+    public void updateStaff(String firstName, StaffDTO staffDTO) {
+        Optional<StaffEntity> tmpStaff = staffDao.findByStaffName(firstName);
         if(!tmpStaff.isPresent()) {
             throw new StaffNotFoundException("Staff Member Not Found");
         }else{
@@ -106,5 +134,14 @@ public class StaffServiceImpl implements StaffService {
         return staffEntities.stream()
                 .map(mapping::toStaffDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StaffDTO getStaffByName(String assignedStaff) {
+        Optional<StaffEntity> tmpStaff = staffDao.findByStaffName(assignedStaff);
+        if(!tmpStaff.isPresent()){
+            throw new StaffNotFoundException("Staff Member Not Found");
+        }
+        return mapping.toStaffDTO(tmpStaff.get());
     }
 }
