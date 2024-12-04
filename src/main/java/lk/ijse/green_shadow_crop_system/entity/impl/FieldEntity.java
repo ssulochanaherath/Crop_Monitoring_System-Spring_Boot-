@@ -29,6 +29,4 @@ public class FieldEntity implements SuperEntity {
     private List<CropEntity> crops = new ArrayList<>();
     @ManyToMany(mappedBy = "fields")
     private List<StaffEntity> allocated_staff = new ArrayList<>();
-
-
 }
