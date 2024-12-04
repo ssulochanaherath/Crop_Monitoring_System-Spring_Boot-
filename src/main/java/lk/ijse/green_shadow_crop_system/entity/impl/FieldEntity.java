@@ -30,4 +30,5 @@ public class FieldEntity implements SuperEntity {
     @ManyToMany(mappedBy = "fields")
     private List<StaffEntity> allocated_staff = new ArrayList<>();
 
+
 }
