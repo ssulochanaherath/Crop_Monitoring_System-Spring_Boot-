@@ -1,6 +1,6 @@
 package lk.ijse.green_shadow_crop_system.dto.impl;
 
-import lk.ijse.green_shadow.dto.CropStatus;
+import lk.ijse.green_shadow_crop_system.dto.CropStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
