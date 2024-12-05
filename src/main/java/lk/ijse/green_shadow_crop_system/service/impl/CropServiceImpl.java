@@ -1,7 +1,6 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.customStatusCodes.SelectedErrorStatus;
 import lk.ijse.green_shadow_crop_system.dao.CropDao;
 import lk.ijse.green_shadow_crop_system.dto.CropStatus;
 import lk.ijse.green_shadow_crop_system.dto.impl.CropDTO;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
