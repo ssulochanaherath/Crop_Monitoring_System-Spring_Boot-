@@ -49,3 +49,4 @@ public class AppUtil {
         return Base64.getEncoder().encodeToString(observedImage);
     }
 }
+

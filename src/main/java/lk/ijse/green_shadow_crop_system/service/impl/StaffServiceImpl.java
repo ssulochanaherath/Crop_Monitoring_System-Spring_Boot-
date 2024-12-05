@@ -1,15 +1,16 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.dto.StaffStatus;
-import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
-import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;
-import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.StaffEntity;
-import lk.ijse.green_shadow_crop_system.exception.StaffNotFoundException;
-import lk.ijse.green_shadow_crop_system.service.StaffService;
-import lk.ijse.green_shadow_crop_system.util.AppUtil;
-import lk.ijse.green_shadow_crop_system.util.Mapping;
+import lk.ijse.green_shadow.dao.FieldDao;
+import lk.ijse.green_shadow.dao.StaffDao;
+import lk.ijse.green_shadow.dto.impl.FieldDTO;
+import lk.ijse.green_shadow.dto.impl.StaffDTO;
+import lk.ijse.green_shadow.entity.impl.FieldEntity;
+import lk.ijse.green_shadow.entity.impl.StaffEntity;
+import lk.ijse.green_shadow.exception.StaffNotFoundException;
+import lk.ijse.green_shadow.service.StaffService;
+import lk.ijse.green_shadow.util.AppUtil;
+import lk.ijse.green_shadow.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,19 +69,9 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public StaffStatus getStaff(String id) {
-        if(staffDao.existsById(id)){
-            var selectedStaff = staffDao.getReferenceById(id);
-            return mapping.toStaffDTO(selectedStaff);
-        }else {
-            return new SelectedErrorStatus(2,"Selected Staff Member Not Found");
-        }
-    }
-
-    @Override
     public void deleteStaff(String id) {
         Optional<StaffEntity> foundStaff = staffDao.findById(id);
-        if(foundStaff.isPresent()) {
+        if(!foundStaff.isPresent()) {
             throw new StaffNotFoundException("Staff Member Not Found");
         }else {
             staffDao.deleteById(id);
@@ -88,8 +79,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public void updateStaff(String firstName, StaffDTO staffDTO) {
-        Optional<StaffEntity> tmpStaff = staffDao.findByStaffName(firstName);
+    public void updateStaff(String staffId, StaffDTO staffDTO) {
+        Optional<StaffEntity> tmpStaff = staffDao.findById(staffId);
         if(!tmpStaff.isPresent()) {
             throw new StaffNotFoundException("Staff Member Not Found");
         }else{
@@ -103,8 +94,6 @@ public class StaffServiceImpl implements StaffService {
             tmpStaff.get().setContact_no(staffDTO.getContact_no());
             tmpStaff.get().setEmail(staffDTO.getEmail());
             tmpStaff.get().setRole(staffDTO.getRole());
-            List<FieldEntity> fieldEntityList = mapping.toFieldEntityList(staffDTO.getFields());
-            tmpStaff.get().setFields(fieldEntityList);
         }
     }
 
@@ -140,5 +129,10 @@ public class StaffServiceImpl implements StaffService {
             throw new StaffNotFoundException("Staff Member Not Found");
         }
         return mapping.toStaffDTO(tmpStaff.get());
+    }
+
+    @Override
+    public Optional<StaffEntity> findByFirstName(String firstName) {
+        return staffDao.findByStaffName(firstName);
     }
 }

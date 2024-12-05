@@ -1,16 +1,18 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.dto.FieldStatus;
-import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
-import lk.ijse.green_shadow_crop_system.entity.impl.CropEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.StaffEntity;
-import lk.ijse.green_shadow_crop_system.exception.FieldNotFoundException;
-import lk.ijse.green_shadow_crop_system.exception.StaffNotFoundException;
-import lk.ijse.green_shadow_crop_system.service.FieldService;
-import lk.ijse.green_shadow_crop_system.util.AppUtil;
-import lk.ijse.green_shadow_crop_system.util.Mapping;
+import lk.ijse.green_shadow.customStatusCodes.SelectedErrorStatus;
+import lk.ijse.green_shadow.dao.FieldDao;
+import lk.ijse.green_shadow.dao.StaffDao;
+import lk.ijse.green_shadow.dto.FieldStatus;
+import lk.ijse.green_shadow.dto.impl.FieldDTO;
+import lk.ijse.green_shadow.entity.impl.FieldEntity;
+import lk.ijse.green_shadow.entity.impl.StaffEntity;
+import lk.ijse.green_shadow.exception.FieldNotFoundException;
+import lk.ijse.green_shadow.exception.StaffNotFoundException;
+import lk.ijse.green_shadow.service.FieldService;
+import lk.ijse.green_shadow.util.AppUtil;
+import lk.ijse.green_shadow.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class FieldServiceImpl implements FieldService{
+public class FieldServiceImpl implements FieldService {
     @Autowired
     private FieldDao fieldDao;
     @Autowired
@@ -39,7 +41,17 @@ public class FieldServiceImpl implements FieldService{
 
     @Override
     public List<FieldDTO> getAllFields() {
-        return mapping.toFieldDTOList(fieldDao.findAll());
+        List<FieldEntity> fields = fieldDao.findAll();
+        return fields.stream()
+                .map(field -> {
+                    FieldDTO fieldDTO = new FieldDTO();
+                    fieldDTO.setField_image1(field.getField_image1());
+                    fieldDTO.setField_name(field.getField_name());
+                    fieldDTO.setExtent_size(field.getExtent_size());
+                    fieldDTO.setLocation(field.getLocation());
+                    return fieldDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +67,7 @@ public class FieldServiceImpl implements FieldService{
     @Override
     public void deleteField(String fieldCode) {
         Optional<FieldEntity> foundField = fieldDao.findById(fieldCode);
-        if(foundField.isPresent()){
+        if(!foundField.isPresent()){
             throw new FieldNotFoundException("Field not found");
         }else {
             fieldDao.deleteById(fieldCode);
@@ -63,8 +75,8 @@ public class FieldServiceImpl implements FieldService{
     }
 
     @Override
-    public void updateField(String fieldCode, FieldDTO fieldDTO) {
-        Optional<FieldEntity> tmpField = fieldDao.findById(fieldCode);
+    public void updateField(String fieldName, FieldDTO fieldDTO) {
+        Optional<FieldEntity> tmpField = fieldDao.findByFieldName(fieldName);
         if(!tmpField.isPresent()){
             throw new FieldNotFoundException("Field not found");
         }else{
@@ -73,10 +85,6 @@ public class FieldServiceImpl implements FieldService{
             tmpField.get().setExtent_size(fieldDTO.getExtent_size());
             tmpField.get().setField_image1(fieldDTO.getField_image1());
             tmpField.get().setField_image2(fieldDTO.getField_image2());
-            List<CropEntity> cropEntityList = mapping.toCropEntityList(fieldDTO.getCrops());
-            tmpField.get().setCrops(cropEntityList);
-            List<StaffEntity> staffEntityList = mapping.toStaffEntityList(fieldDTO.getAllocated_staff());
-            tmpField.get().setAllocated_staff(staffEntityList);
         }
     }
 
@@ -134,4 +142,10 @@ public class FieldServiceImpl implements FieldService{
                 .map(mapping::toFieldDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<FieldEntity> findByFieldName(String fieldName) {
+        return fieldDao.findByFieldName(fieldName);
+    }
+
 }

@@ -1,18 +1,20 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.dto.CropStatus;
-import lk.ijse.green_shadow_crop_system.dto.impl.CropDTO;
-import lk.ijse.green_shadow_crop_system.entity.impl.CropEntity;
-import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
-import lk.ijse.green_shadow_crop_system.exception.CropNotFoundException;
-import lk.ijse.green_shadow_crop_system.exception.DataPersistException;
-import lk.ijse.green_shadow_crop_system.service.CropService;
-import lk.ijse.green_shadow_crop_system.util.AppUtil;
-import lk.ijse.green_shadow_crop_system.util.Mapping;
+import lk.ijse.green_shadow.customStatusCodes.SelectedErrorStatus;
+import lk.ijse.green_shadow.dao.CropDao;
+import lk.ijse.green_shadow.dto.CropStatus;
+import lk.ijse.green_shadow.dto.impl.CropDTO;
+import lk.ijse.green_shadow.dto.impl.FieldDTO;
+import lk.ijse.green_shadow.entity.impl.CropEntity;
+import lk.ijse.green_shadow.entity.impl.FieldEntity;
+import lk.ijse.green_shadow.exception.CropNotFoundException;
+import lk.ijse.green_shadow.exception.DataPersistException;
+import lk.ijse.green_shadow.service.CropService;
+import lk.ijse.green_shadow.util.AppUtil;
+import lk.ijse.green_shadow.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +40,26 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return mapping.toCropDTOList(cropDao.findAll());
+        List<CropEntity> crops = cropDao.findAll();
+        return crops.stream()
+                .map(crop -> {
+                    CropDTO cropDTO = new CropDTO();
+                    cropDTO.setCrop_image(crop.getCrop_image());
+                    cropDTO.setCommon_name(crop.getCommon_name());
+                    cropDTO.setScientific_name(crop.getScientific_name());
+                    cropDTO.setCategory(crop.getCategory());
+                    cropDTO.setSeason(crop.getSeason());
+                    FieldDTO fieldDTO = Optional.ofNullable(crop.getField())
+                            .map(field -> {
+                                FieldDTO minimalFieldDTO = new FieldDTO();
+                                minimalFieldDTO.setField_name(field.getField_name());
+                                return minimalFieldDTO;
+                            })
+                            .orElse(null);
+                    cropDTO.setField(fieldDTO);
+                    return cropDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -54,7 +75,7 @@ public class CropServiceImpl implements CropService {
     @Override
     public void deleteCrop(String cropCode) {
         Optional<CropEntity> foundCrop = cropDao.findById(cropCode);
-        if(foundCrop.isPresent()) {
+        if(!foundCrop.isPresent()) {
             throw new CropNotFoundException("Crop not found");
         }else {
             cropDao.deleteById(cropCode);
@@ -62,8 +83,8 @@ public class CropServiceImpl implements CropService {
     }
 
     @Override
-    public void updateCrop(String cropCode, CropDTO cropDTO) {
-        Optional<CropEntity> tmpCrop = cropDao.findById(cropCode);
+    public void updateCrop(String commonName, CropDTO cropDTO) {
+        Optional<CropEntity> tmpCrop = cropDao.findByCropName(commonName);
         if(!tmpCrop.isPresent()) {
             throw new CropNotFoundException("Crop not found");
         }else {
@@ -98,5 +119,10 @@ public class CropServiceImpl implements CropService {
         return cropEntities.stream()
                 .map(mapping::toCropDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<CropEntity> findByCommonName(String commonName) {
+        return cropDao.findByCropName(commonName);
     }
 }
