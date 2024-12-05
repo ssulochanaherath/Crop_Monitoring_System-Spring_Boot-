@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthCheckController {
     @GetMapping
     public String healthTest(){
-        return "Crop System";
+        return "Green Shadow API is working";
     }
-    
-
 }
