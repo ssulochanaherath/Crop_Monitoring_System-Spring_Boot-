@@ -1,6 +1,6 @@
 package lk.ijse.green_shadow_crop_system.customStatusCodes;
 
-import lk.ijse.green_shadow.dto.*;
+import lk.ijse.green_shadow_crop_system.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
