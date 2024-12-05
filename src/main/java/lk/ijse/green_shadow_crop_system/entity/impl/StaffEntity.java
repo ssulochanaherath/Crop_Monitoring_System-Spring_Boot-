@@ -1,10 +1,10 @@
 package lk.ijse.green_shadow_crop_system.entity.impl;
 
 import jakarta.persistence.*;
-import lk.ijse.green_shadow_crop_system.entity.Designation;
-import lk.ijse.green_shadow_crop_system.entity.Gender;
-import lk.ijse.green_shadow_crop_system.entity.Role;
-import lk.ijse.green_shadow_crop_system.entity.SuperEntity;
+import lk.ijse.green_shadow.entity.Designation;
+import lk.ijse.green_shadow.entity.Gender;
+import lk.ijse.green_shadow.entity.Role;
+import lk.ijse.green_shadow.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ public class StaffEntity implements SuperEntity {
     private Role role;
     @ManyToMany
     @JoinTable(name = "Field_Staff_assignment",joinColumns = @JoinColumn(name = "staff_id"),
-            inverseJoinColumns = @JoinColumn(name = "field_code"))
+                                                             inverseJoinColumns = @JoinColumn(name = "field_code"))
     private List<FieldEntity> fields;
     @OneToMany(mappedBy = "assigned_staff",cascade = CascadeType.ALL)
     private List<VehicleEntity> vehicles;
