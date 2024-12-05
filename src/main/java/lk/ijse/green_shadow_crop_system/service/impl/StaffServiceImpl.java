@@ -1,8 +1,6 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.dao.FieldDao;
-import lk.ijse.green_shadow_crop_system.dao.StaffDao;
 import lk.ijse.green_shadow_crop_system.dto.StaffStatus;
 import lk.ijse.green_shadow_crop_system.dto.impl.FieldDTO;
 import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;

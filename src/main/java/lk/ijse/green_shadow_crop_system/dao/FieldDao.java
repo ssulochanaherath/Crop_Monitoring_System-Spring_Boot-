@@ -1,6 +1,6 @@
 package lk.ijse.green_shadow_crop_system.dao;
 
-import lk.ijse.green_shadow_crop_system.entity.impl.FieldEntity;
+import lk.ijse.green_shadow.entity.impl.FieldEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface FieldDao extends JpaRepository<FieldEntity, String> {
+public interface FieldDao extends JpaRepository<FieldEntity,String> {
     @Query("SELECT f FROM FieldEntity f WHERE f.field_name = :field_name")
     Optional<FieldEntity> findByFieldName(@Param("field_name") String field_name);
 

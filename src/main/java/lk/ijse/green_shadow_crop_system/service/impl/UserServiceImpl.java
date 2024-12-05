@@ -1,7 +1,6 @@
 package lk.ijse.green_shadow_crop_system.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.green_shadow_crop_system.dao.UserDao;
 import lk.ijse.green_shadow_crop_system.dto.impl.UserDTO;
 import lk.ijse.green_shadow_crop_system.entity.impl.UserEntity;
 import lk.ijse.green_shadow_crop_system.exception.DataPersistException;
