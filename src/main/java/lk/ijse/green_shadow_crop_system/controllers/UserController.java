@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/user")
-green_shadow_crop_system.
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;

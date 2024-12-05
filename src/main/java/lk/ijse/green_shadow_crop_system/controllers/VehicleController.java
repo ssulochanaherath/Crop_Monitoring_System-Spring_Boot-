@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/vehicle")
 @CrossOrigin
-pgreen_shadow_crop_system.VehicleController {
+public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
     @Autowired
