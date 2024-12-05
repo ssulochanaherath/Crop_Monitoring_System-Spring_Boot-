@@ -1,13 +1,13 @@
 package lk.ijse.green_shadow_crop_system.controllers;
 
-import lk.ijse.green_shadow.dto.impl.StaffDTO;
-import lk.ijse.green_shadow.dto.impl.VehicleDTO;
-import lk.ijse.green_shadow.entity.impl.VehicleEntity;
-import lk.ijse.green_shadow.exception.DataPersistException;
-import lk.ijse.green_shadow.exception.VehicleNotFoundException;
-import lk.ijse.green_shadow.service.StaffService;
-import lk.ijse.green_shadow.service.VehicleService;
-import lk.ijse.green_shadow.util.Regex;
+import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;
+import lk.ijse.green_shadow_crop_system.dto.impl.VehicleDTO;
+import lk.ijse.green_shadow_crop_system.entity.impl.VehicleEntity;
+import lk.ijse.green_shadow_crop_system.exception.DataPersistException;
+import lk.ijse.green_shadow_crop_system.exception.VehicleNotFoundException;
+import lk.ijse.green_shadow_crop_system.service.StaffService;
+import lk.ijse.green_shadow_crop_system.service.VehicleService;
+import lk.ijse.green_shadow_crop_system.util.Regex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/vehicle")
 @CrossOrigin
-public class VehicleController {
+pgreen_shadow_crop_system.VehicleController {
     @Autowired
     private VehicleService vehicleService;
     @Autowired
