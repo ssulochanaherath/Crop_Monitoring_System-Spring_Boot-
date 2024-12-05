@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-pgreen_shadow_crop_system.EquipmentServiceImpl implements EquipmentService {
+public class EquipmentServiceImpl implements EquipmentService {
     @Autowired
     private EquipmentDao equipmentDao;
     @Autowired
