@@ -1,7 +1,7 @@
 package lk.ijse.green_shadow_crop_system.util;
 
-import lk.ijse.green_shadow.dto.impl.*;
-import lk.ijse.green_shadow.entity.impl.*;
+import lk.ijse.green_shadow_crop_system.dto.impl.*;
+import lk.ijse.green_shadow_crop_system.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
