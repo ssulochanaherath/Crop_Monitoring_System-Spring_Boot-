@@ -1,11 +1,11 @@
 package lk.ijse.green_shadow_crop_system.controllers;
 
-import lk.ijse.green_shadow.dto.impl.UserDTO;
-import lk.ijse.green_shadow.exception.DataPersistException;
-import lk.ijse.green_shadow.secure.JWTAuthResponse;
-import lk.ijse.green_shadow.secure.SignIn;
-import lk.ijse.green_shadow.service.AuthService;
-import lk.ijse.green_shadow.service.UserService;
+import lk.ijse.green_shadow_crop_system.dto.impl.UserDTO;
+import lk.ijse.green_shadow_crop_system.exception.DataPersistException;
+import lk.ijse.green_shadow_crop_system.secure.JWTAuthResponse;
+import lk.ijse.green_shadow_crop_system.secure.SignIn;
+import lk.ijse.green_shadow_crop_system.service.AuthService;
+import lk.ijse.green_shadow_crop_system.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
