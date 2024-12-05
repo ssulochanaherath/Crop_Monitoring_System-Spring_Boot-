@@ -1,8 +1,8 @@
 package lk.ijse.green_shadow_crop_system.service;
 
-import lk.ijse.green_shadow.dto.MonitoringLogStatus;
-import lk.ijse.green_shadow.dto.impl.MonitoringLogDTO;
-import lk.ijse.green_shadow.entity.impl.MonitoringLogEntity;
+import lk.ijse.green_shadow_crop_system.dto.MonitoringLogStatus;
+import lk.ijse.green_shadow_crop_system.dto.impl.MonitoringLogDTO;
+import lk.ijse.green_shadow_crop_system.entity.impl.MonitoringLogEntity;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package lk.ijse.green_shadow_crop_system.service;
 
-import lk.ijse.green_shadow.dto.VehicleStatus;
-import lk.ijse.green_shadow.dto.impl.VehicleDTO;
-import lk.ijse.green_shadow.entity.impl.VehicleEntity;
+import lk.ijse.green_shadow_crop_system.dto.VehicleStatus;
+import lk.ijse.green_shadow_crop_system.dto.impl.VehicleDTO;
+import lk.ijse.green_shadow_crop_system.entity.impl.VehicleEntity;
 
 import java.util.List;
 import java.util.Optional;

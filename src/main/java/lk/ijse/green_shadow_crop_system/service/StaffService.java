@@ -1,7 +1,7 @@
 package lk.ijse.green_shadow_crop_system.service;
 
-import lk.ijse.green_shadow.dto.impl.StaffDTO;
-import lk.ijse.green_shadow.entity.impl.StaffEntity;
+import lk.ijse.green_shadow_crop_system.dto.impl.StaffDTO;
+import lk.ijse.green_shadow_crop_system.entity.impl.StaffEntity;
 
 import java.util.List;
 import java.util.Optional;
