@@ -1,6 +1,6 @@
 package lk.ijse.green_shadow_crop_system.dto.impl;
 
-import lk.ijse.green_shadow_crop_system.dto.FieldStatus;
+import lk.ijse.green_shadow.dto.FieldStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,7 @@ public class FieldDTO implements FieldStatus {
     private Double extent_size;
     private String field_image1;
     private String field_image2;
-    private java.util.List<CropDTO> crops = new ArrayList<>();
+    private List<CropDTO> crops = new ArrayList<>();
     private List<StaffDTO> allocated_staff = new ArrayList<>();
+
 }
